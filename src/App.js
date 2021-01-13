@@ -1,15 +1,31 @@
 import React from 'react'
 
-/*
-function App() {
-    return <div>Hello React</div>;
+function App({ title }) {
+    return (
+        <div>
+            <div style={{ 
+                padding: "2rem", 
+                border: "1px solid green", 
+                backgroundColor: "gray",
+                color:"white"
+                }}
+            >
+                { title }
+            </div>
+        </div>
+    );
 }
-*/
 
-class App extends React.Component {
-    render(){
-        return <div>Hello React</div>;
-    }
-}
+// class App extends React.Component {
+
+//     constructor(props){
+//         super(props);
+//         this.state = { title: "Hello React" }
+//     }
+
+//     render(){
+//         return <div>{ this.state.title }</div>;
+//     }
+// }
 
 export default App;

@@ -24,6 +24,10 @@ class App extends React.Component {
         this.setState({ title: "Hello Lifecycle" });
     }
 
+    componentDidUpdate(){
+        console.log("App Updated");
+    }
+
     handleClick = () => {
         this.setState({ isShowing: !this.state.isShowing });
     }

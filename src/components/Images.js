@@ -13,10 +13,10 @@ export default function Images() {
     const [newImageUrl, setnewImageUrl] = useState("");
 
     function ShowImage(){
-        return images.map((image) => {
+        return images.map((image, index) => {
             return (
-                <div className="w-1/3 my-4 flex justify-center">
-                    <img src={ image } width="150" alt="img ld"/>
+                <div className="w-1/3 my-4 flex justify-center" key={index}>
+                    <img src={ image } width="150" alt="img ld" onClick={ () => handleRemove(index) }/>
                 </div>
             )
         })
@@ -27,6 +27,14 @@ export default function Images() {
             setimages([...images,newImageUrl]);
             setnewImageUrl("");
         }  
+    }
+
+    function handleRemove(index){
+        //setimages(images.filter((image,i) => i !== index));
+        setimages([
+            ...images.slice(0,index), 
+            ...images.slice(index+1,images.length)
+        ]);
     }
 
     function handleChange(event){

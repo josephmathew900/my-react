@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import Image from './Image';
 
 
 export default function Images() {
@@ -11,7 +12,6 @@ export default function Images() {
     ]);
 
     const [newImageUrl, setnewImageUrl] = useState("");
-    const [isHovering, setisHovering] = useState(-1);
 
     function handleAdd(){
         if(newImageUrl !== ""){
@@ -33,25 +33,7 @@ export default function Images() {
     }
 
     function ShowImage(){
-        return images.map((image, index) => {
-            return (
-                <div className="w-1/3 my-4 flex justify-center" key={index}>
-                    <div 
-                        className="relative"
-                        onMouseEnter={() => setisHovering(index)}
-                        onMouseLeave={() => setisHovering(-1)}
-                    >
-                        <i className={`fas fa-times absolute right-0 cursor-pointer opacity-25 hover:opacity-100 
-                            ${isHovering === index ? "" : "hidden"}`}
-                           onClick={ () => handleRemove(index) }></i>
-                        <img src={ image } 
-                            width="150" 
-                            alt="img ld" 
-                        />
-                    </div>
-                </div>
-            )
-        })
+        return images.map((img, index) => <Image index={index} image={img} handleRemove={handleRemove} key={index}/>);
     }
 
     return (

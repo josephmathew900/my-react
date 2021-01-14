@@ -15,7 +15,7 @@ export default function Images() {
     function ShowImage(){
         return images.map((image) => {
             return (
-                <div>
+                <div className="w-1/3 my-4 flex justify-center">
                     <img src={ image } width="150" alt="img ld"/>
                 </div>
             )
@@ -23,8 +23,10 @@ export default function Images() {
     }
 
     function handleAdd(){
-        setimages([...images,newImageUrl]);
-        setnewImageUrl("");
+        if(newImageUrl !== ""){
+            setimages([...images,newImageUrl]);
+            setnewImageUrl("");
+        }  
     }
 
     function handleChange(event){
@@ -36,13 +38,22 @@ export default function Images() {
             <div className="flex flex-wrap justify-center my-5">
                 <ShowImage />
             </div>
-            <div className="flex justify-between">
-                <input 
-                    type="text" 
-                    className="p-2 border border-gray-800 shadow rounded" 
-                    onChange={handleChange}
-                    value={ newImageUrl }/>
-                <button className="p-2 bg-green-600 text-white" onClick={ handleAdd }>Add New</button>
+            <div className="flex justify-between my-5">
+                <div className="w-full">
+                    <input 
+                        type="text" 
+                        className="p-2 border border-gray-800 shadow rounded w-full" 
+                        onChange={handleChange}
+                        value={ newImageUrl }/>
+                </div>
+                <div>
+                    <button
+                        disabled={ newImageUrl === "" } 
+                        className={`p-2 text-white ml-2 ${newImageUrl !== ""?"bg-green-600":"bg-green-300"}`} 
+                        onClick={ handleAdd }>
+                        Add
+                    </button>
+                </div>
             </div>
         </section>
     )

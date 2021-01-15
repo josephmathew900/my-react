@@ -1,11 +1,11 @@
-import Axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
+import useFetchImage from '../utils/hooks/useFetchImage';
 import Image from './Image';
 
 
 export default function Images() {
 
-    const [images, setimages] = useState([]);
+    const [images, setimages] = useFetchImage();
 
     const [newImageUrl, setnewImageUrl] = useState("");
 
@@ -15,11 +15,7 @@ export default function Images() {
         // const inputBox = document.getElementById('inputBox');
         // inputBox.focus();
         inputRef.current.focus();
-        Axios.get(
-            `${process.env.REACT_APP_UNSPLASH_URL}?client_id=${process.env.REACT_APP_UNSPLASH_KEY}`
-            ).then(res => {
-                setimages(res.data);
-            });
+
 
     }, []);
 

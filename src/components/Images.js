@@ -9,7 +9,9 @@ export default function Images() {
 
     const [page, setPage] = useState(1);
 
-    const [images, setImages, errors, isLoading] = useFetchImage(page);
+    const [searchTerm, setSearchTerm] = useState(null);
+
+    const [images, setImages, errors, isLoading] = useFetchImage(page, searchTerm);
 
 
     function handleRemove(index){
@@ -32,8 +34,19 @@ export default function Images() {
         );
     }
 
+    function handleInput(e){
+        setSearchTerm(e.target.value);
+    }
+
     return (
         <section>
+            <div className="my-5">
+                <input 
+                    type="text" 
+                    onChange={handleInput} 
+                    className="w-full border rounded shadow p-2"
+                    placeholder="Search Photos Here"/>
+            </div>
             { errors.length > 0 ?
                 <div className="flex h-screen">
                     <p className="m-auto">{errors[0]}</p>

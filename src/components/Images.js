@@ -5,7 +5,9 @@ import Image from './Image';
 
 export default function Images() {
 
-    const [images, setimages] = useFetchImage();
+    const [page, setPage] = useState(1);
+
+    const [images, setImages] = useFetchImage(page);
 
     const [newImageUrl, setnewImageUrl] = useState("");
 
@@ -21,14 +23,14 @@ export default function Images() {
 
     function handleAdd(){
         if(newImageUrl !== ""){
-            setimages([...images,newImageUrl]);
+            setImages([...images,newImageUrl]);
             setnewImageUrl("");
         }  
     }
 
     function handleRemove(index){
         //setimages(images.filter((image,i) => i !== index));
-        setimages([
+        setImages([
             ...images.slice(0,index), 
             ...images.slice(index+1,images.length)
         ]);
@@ -47,6 +49,7 @@ export default function Images() {
             <div className="gap-0" style={{columnCount:5}}>
                 <ShowImage />
             </div>
+            <button onClick={() => setPage(page+1)}>Load More</button>
             <div className="flex justify-between my-5">
                 <div className="w-full">
                     <input 

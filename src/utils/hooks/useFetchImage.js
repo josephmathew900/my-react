@@ -5,15 +5,15 @@ import { useEffect, useState } from 'react';
 const url = process.env.REACT_APP_UNSPLASH_URL;
 const secret = process.env.REACT_APP_UNSPLASH_KEY;
 
-export default function useFetchImage() {
+export default function useFetchImage(page) {
 
-    const [images, setimages] = useState([]);
+    const [images, setImages] = useState([]);
 
     useEffect(() => {
-        Axios.get(`${url}?client_id=${secret}`).then(res => {
-            setimages(res.data);
+        Axios.get(`${url}?client_id=${secret}&page=${page}`).then(res => {
+            setImages([...images,...res.data]);
         });
-    }, [])
+    }, [page])
 
-    return [images, setimages];
+    return [images, setImages];
 }

@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import useFetchImage from '../utils/hooks/useFetchImage';
 import Image from './Image';
+import Loading from './Loading';
 
 
 export default function Images() {
 
     const [page, setPage] = useState(1);
 
-    const [images, setImages, errors] = useFetchImage(page);
-
+    const [images, setImages, errors, isLoading] = useFetchImage(page);
 
     function handleRemove(index){
         //setimages(images.filter((image,i) => i !== index));
@@ -22,7 +22,9 @@ export default function Images() {
         return images.map((img, index) => <Image index={index} image={img.urls.regular} handleRemove={handleRemove} key={index}/>);
     }
 
-    return (
+    return isLoading ? ( 
+        <Loading />
+    ) : (
         <section>
             { errors.length > 0 ?
                 <div className="flex h-screen">

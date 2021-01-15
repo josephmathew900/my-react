@@ -1,17 +1,27 @@
-import React, { useState } from 'react';
+import Axios from 'axios';
+import React, { useEffect, useRef, useState } from 'react';
 import Image from './Image';
 
 
 export default function Images() {
 
-    const [images, setimages] = useState([
-        "https://images.unsplash.com/photo-1610381812786-592c70146600?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-        "https://images.unsplash.com/photo-1610492273249-6406a1154eae?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-        "https://images.unsplash.com/photo-1610473068893-7a63129207d2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80",
-        "https://images.unsplash.com/photo-1610551001381-d62bbbbd9299?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
-    ]);
+    const [images, setimages] = useState([]);
 
     const [newImageUrl, setnewImageUrl] = useState("");
+
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        // const inputBox = document.getElementById('inputBox');
+        // inputBox.focus();
+        inputRef.current.focus();
+        Axios.get(
+            'https://api.unsplash.com/photos/?client_id=PDZGis7ls5tVcgB64pT5hDuUTNkJWg6GJhHT7tiuatk'
+            ).then(res => {
+                setimages(res.data);
+            });
+
+    }, []);
 
     function handleAdd(){
         if(newImageUrl !== ""){
@@ -33,7 +43,7 @@ export default function Images() {
     }
 
     function ShowImage(){
-        return images.map((img, index) => <Image index={index} image={img} handleRemove={handleRemove} key={index}/>);
+        return images.map((img, index) => <Image index={index} image={img.urls.regular} handleRemove={handleRemove} key={index}/>);
     }
 
     return (
@@ -44,7 +54,9 @@ export default function Images() {
             <div className="flex justify-between my-5">
                 <div className="w-full">
                     <input 
-                        type="text" 
+                        type="text"
+                        id="inputBox"
+                        ref={ inputRef }
                         className="p-2 border border-gray-800 shadow rounded w-full" 
                         onChange={handleChange}
                         value={ newImageUrl }/>

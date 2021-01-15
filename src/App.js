@@ -9,7 +9,7 @@ function App() {
             <section className="flex justify-center">
                 <div className="w-10/12">
                     <div className="text-center">
-                        <div className="my-4">{ title }</div>
+                        <div className="my-4 font-bold text-2xl">{ title }</div>
                         <Images />
                     </div>
                 </div>

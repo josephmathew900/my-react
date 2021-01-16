@@ -1,3 +1,5 @@
+import firebase from "firebase";
+
 var firebaseConfig = {
   apiKey: "AIzaSyAyocTiQ_QFwLad4-dZE-ziuMmwh-b8XrY",
   authDomain: "in-depth-react-1-79fb1.firebaseapp.com",

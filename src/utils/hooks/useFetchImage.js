@@ -14,8 +14,6 @@ export default function useFetchImage(page, searchTerm) {
       searchTerm === null || searchTerm === ""
         ? "photos?"
         : `search/photos?query=${searchTerm}&`;
-    console.log(`${api}/${url}client_id=${secret}&page=${page}`);
-    console.log(page);
     Axios.get(`${api}/${url}client_id=${secret}&page=${page}`)
       .then((res) => {
         if (searchTerm === null || searchTerm === "") {

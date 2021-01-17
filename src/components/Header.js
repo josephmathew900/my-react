@@ -12,7 +12,7 @@ export default function Header() {
       .auth()
       .signOut()
       .then((res) => {
-        history.replace("/");
+        history.push("/");
       })
       .catch((e) => {
         console.log(e.response.data);

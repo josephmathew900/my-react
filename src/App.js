@@ -7,22 +7,29 @@ import firebase from "./config/firebase";
 import AppContext from "./store/AppContext";
 import AuthRoute from "./utils/routes/AuthRoute";
 import GuestRoute from "./utils/routes/GuestRoute";
+import Loading from "./components/Loading";
 
 function App() {
   const [user, setUser] = useState({});
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         setIsLoggedIn(true);
         setUser(user);
+        setIsLoading(false);
       } else {
         setUser({});
         setIsLoggedIn(false);
+        setIsLoading(false);
       }
     });
   }, []);
+
+  if (isLoading) return <Loading />;
 
   return (
     <Router>

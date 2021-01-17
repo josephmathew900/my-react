@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
 import firebase from "../config/firebase";
+import AppContext from "../store/AppContext";
 
 export default function Header() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, user] = useContext(AppContext);
   const history = useHistory();
-
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
-        setIsLoggedIn(true);
-      }
-    });
-  }, []);
 
   function logout() {
     firebase
       .auth()
       .signOut()
       .then((res) => {
-        setIsLoggedIn(false);
-        history.replace("/login");
+        history.replace("/");
       })
       .catch((e) => {
         console.log(e.response.data);

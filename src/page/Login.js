@@ -19,8 +19,6 @@ export default function Login() {
       .then((res) => {
         //setIsLoggedIn(true);
         history.replace("/");
-        setError("");
-        setIsLoading(false);
       })
       .catch((e) => {
         setError(e.message);

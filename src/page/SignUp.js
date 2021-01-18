@@ -1,15 +1,17 @@
 import { ErrorMessage, Field, Form, Formik, useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import * as Yup from "yup";
 import firebase from "../config/firebase";
 
 export default function SignUp() {
   const history = useHistory();
+  const [isLoading, setIsLoading] = useState(false);
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
       onSubmit={(value, formikBag) => {
+        setIsLoading(true);
         firebase
           .auth()
           .createUserWithEmailAndPassword(value.email, value.password)
@@ -18,6 +20,7 @@ export default function SignUp() {
           })
           .catch((e) => {
             formikBag.setFieldError("email", e.message);
+            setIsLoading(false);
           });
       }}
       validationSchema={Yup.object({
@@ -59,11 +62,11 @@ export default function SignUp() {
                 type="submit"
                 className="p-2 rounded shadow w-full bg-gradient-to-tr from-yellow-600 to-yellow-400 text-black"
               >
-                {/* isLoading ? (
-            <i className="fas fa-circle-notch fa-spin"></i>
-          ) : ( */}
-                Sign Up
-                {/*)}*/}
+                {isLoading ? (
+                  <i className="fas fa-circle-notch fa-spin"></i>
+                ) : (
+                  "Sign Up"
+                )}
               </button>
             </div>
           </Form>

@@ -18,7 +18,7 @@ export default function Login() {
       .signInWithEmailAndPassword(form.email, form.password)
       .then((res) => {
         //setIsLoggedIn(true);
-        //history.replace("/");
+        history.replace("/");
       })
       .catch((e) => {
         setError(e.message);

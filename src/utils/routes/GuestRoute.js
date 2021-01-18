@@ -5,9 +5,6 @@ import AppContext from "../../store/AppContext";
 
 export default function GuestRoute(props) {
   const [isLoggedIn, user] = useContext(AppContext);
-  console.log(isLoggedIn);
-
-  //if (isLoggedIn === null) return <Loading />;
 
   if (!isLoggedIn) return <Route {...props} />;
 

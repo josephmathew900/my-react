@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import PropTypes from "prop-types";
+import useTFClassify from "../utils/hooks/useTFClassify";
 
 function Image({ index, image, handleRemove, show }) {
   const [isHovering, setisHovering] = useState(false);
+  const imageRef = useRef();
+  const [predict, predictions, setPrediction, isLoading] = useTFClassify();
 
   return (
     <div
@@ -10,12 +13,39 @@ function Image({ index, image, handleRemove, show }) {
       onMouseEnter={() => setisHovering(true)}
       onMouseLeave={() => setisHovering(false)}
     >
+      {(predictions.length > 0 || isLoading) && (
+        <span
+          className="absolute bg-gray-800 text-white rounded-lg shadow px-2 left-0 ml-5"
+          onClick={() => setPrediction([])}
+        >
+          {isLoading && <p>Fetching results...</p>}
+          {predictions.map((prediction) => (
+            <div className="flex justify-between text-sm">
+              <p>{prediction.className}</p>
+              <p>{Math.floor(prediction.probability * 100)} %</p>
+            </div>
+          ))}
+        </span>
+      )}
       <i
         className={`fas fa-times absolute right-0 cursor-pointer opacity-25 hover:opacity-100 
                     ${isHovering ? "" : "hidden"}`}
         onClick={() => handleRemove(index)}
       ></i>
-      <img onClick={show} src={image} width="100%" height="auto" alt="img ld" />
+      <i
+        className={`fas fa-search absolute left-0 cursor-pointer opacity-25 hover:opacity-100 
+                    ${isHovering ? "" : "hidden"}`}
+        onClick={() => predict(imageRef.current)}
+      ></i>
+      <img
+        ref={imageRef}
+        onClick={show}
+        src={image}
+        width="100%"
+        height="auto"
+        crossOrigin="anonymous"
+        alt="img ld"
+      />
     </div>
   );
 }

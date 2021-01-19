@@ -5,7 +5,7 @@ import useTFClassify from "../utils/hooks/useTFClassify";
 function Image({ index, image, handleRemove, show }) {
   const [isHovering, setisHovering] = useState(false);
   const imageRef = useRef();
-  const [predict, predictions, setPrediction, isLoading] = useTFClassify();
+  const { predict, predictions, setPrediction, isLoading } = useTFClassify();
 
   return (
     <div

@@ -8,5 +8,9 @@ export default function GuestRoute({ children, ...rest }) {
 
   if (!isLoggedIn) return <AnimateRoute {...rest}>{children}</AnimateRoute>;
 
-  return <Redirect to="/" />;
+  return (
+    <AnimateRoute>
+      <Redirect to="/" />
+    </AnimateRoute>
+  );
 }
